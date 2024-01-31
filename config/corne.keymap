@@ -6,15 +6,28 @@
 
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
-#include <dt-bindings/zmk/keys.h>
 
 / {
     macros {
-        a: new_macro {
+        comment: comment {
             compatible = "zmk,behavior-macro";
             #binding-cells = <0>;
-            bindings = <&kp RIGHT_ALT &kp LEFT_BRACKET>;
-            label = "NEW_MACRO";
+            bindings = <&kp LC(SLASH)>;
+            label = "COMMENT";
+        };
+
+        comment_Block: comment_Block {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LEFT_CONTROL &kp SLASH &kp ASTERISK>;
+            label = "COMMENT_BLOCK";
+        };
+
+        shortcut: shortcut {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LCMD &kp LEFT_SHIFT &kp N5>;
+            label = "SHORTCUT";
         };
     };
 
@@ -44,10 +57,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&kp TAB           &kp N1                &kp N2            &kp N3                &kp N4        &kp N5               &kp N6    &kp N7          &kp N8        &kp N9           &kp N0  &kp BSPC
-&kt LEFT_SHIFT    &kp RA(LEFT_BRACKET)  &kt RA(RBKT)      &kt RA(LEFT_BRACKET)  &kt RA(NUBS)  &kt APOSTROPHE       &trans    &trans          &trans        &trans           &trans  &trans
-&kp LEFT_CONTROL  &kt LESS_THAN         &kt GREATER_THAN  &trans                &trans        &kt DOUBLE_QUOTES    &kt LEFT  &kt DOWN_ARROW  &kt UP_ARROW  &kt RIGHT_ARROW  &trans  &trans
-                                                          &kp LGUI              &mo 1         &kp SPACE            &kp RET   &mo 2           &kp RALT
+&kp TAB           &kp N1                &kp N2                 &kp N3              &kp N4               &kp N5         &kp N6          &kp N7        &kp N8          &kp N9           &kp N0  &kp BSPC
+&kp LEFT_SHIFT    &kp RA(LEFT_BRACKET)  &kp RA(RIGHT_BRACKET)  &kp RA(LEFT_BRACE)  &kp RA(RIGHT_BRACE)  &kp EQUAL      &none           &none         &none           &none            &none   &none
+&kp LEFT_CONTROL  &kp LESS_THAN         &kp GREATER_THAN       &none               &trans               &kp AT_SIGN    &kp LEFT_ARROW  &kp UP_ARROW  &kp DOWN_ARROW  &kp RIGHT_ARROW  &none   &none
+                                                               &kp LGUI            &mo 1                &kp SPACE      &kp RET         &mo 2         &kp RALT
             >;
         };
 
@@ -59,10 +72,10 @@
             //                    | GUI |     | SPC |   | ENT |     | ALT |
 
             bindings = <
-&kp TAB    &kp EXCL  &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS   &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp BSPC
-&kp LCTRL  &none     &none   &none     &none     &none        &kp MINUS  &kp EQUAL  &kp LBKT         &kp RBKT  &kp BSLH  &kp GRAVE
-&kp LSHFT  &none     &none   &none     &none     &none        &kp UNDER  &kp PLUS   &kp LBRC         &kp RBRC  &kp PIPE  &kp TILDE
-                             &kp LGUI  &trans    &kp SPACE    &kp RET    &trans     &kp RALT
+&kp TAB    &kp EXCL   &kp AT  &kp HASH  &kp DLLR  &kp PRCNT    &kp CARET  &kp AMPS        &kp KP_MULTIPLY  &kp LPAR  &kp RPAR  &kp BSPC
+&kp LCTRL  &shortcut  &none   &none     &none     &none        &comment   &comment_Block  &none            &none     &none     &none
+&kp LSHFT  &none      &none   &none     &none     &none        &none      &none           &none            &none     &none     &none
+                              &kp LGUI  &trans    &kp SPACE    &kp RET    &trans          &kp RALT
             >;
         };
 
